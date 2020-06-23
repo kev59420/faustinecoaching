@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %} Faustine Coaching {% endblock %}</title>
+	<meta charset="utf-8">
+	{% block head %} <link rel="stylesheet" type="text/css" href="..\css\template.css"> {% endblock %}
+</head>
+
+<body>
+
+	<header>
+		<nav>
+			<ul>
+
+				<div id="logo">
+					<h1>LOGO</h1>
+				</div>
+
+				<li><a href="{{ path("home_homepage") }}">Home</a></li>
+				<li><a href="{{ path("recette_homepage") }}">Livre de recette</a></li>
+				<li><a href="{{ path("blog_homepage") }}">Blog</a></li>
+			</ul>
+		</nav>
+	</header>
+
+		{% block body %}
+
+		{% endblock body %}
+		
+
+</body>
+</html>

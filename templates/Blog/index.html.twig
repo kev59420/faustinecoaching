@@ -1,0 +1,45 @@
+{% extends "layout.html.twig" %}
+
+{% block title %} {{ parent() }} - Blog {% endblock %}
+{% block head %} {{ parent() }} <link rel="stylesheet" type="text/css" href="..\css\home.css">{% endblock %}
+
+{% block body %}
+
+<a href=" {{ path('article_add')}} ">Ajouter article</a>
+
+{% for article in articles %}
+
+<div class="articles">
+	<div class="img_art">
+		<img src="..\..\image\Blog\{{ article.imageFilename }}">
+	</div>
+	<div class="contenu_art">
+		<h2> <a href=" {{ path('article_view', {id: article.id}) }}"> {{ article.titre }} </a></h2>
+
+		<p>
+			{{ article.contenu }} 
+
+		</p>
+
+	</div>
+	
+</div>
+<div>
+	<a href=" {{ path('article_edit', {id: article.id }) }}">éditer l'article</a>
+</div>
+<div>
+	<a href=" {{ path('article_delete', {id: article.id }) }}">Suprimer article</a>
+</div>
+
+{% else %}
+
+<p>
+	Pas d'articles trouvé
+
+</p>
+
+{% endfor %}
+
+
+
+{% endblock %}

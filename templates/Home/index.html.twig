@@ -1,0 +1,85 @@
+{% extends "layout.html.twig" %}
+
+{% block title %} {{ parent() }} - Home {% endblock %}
+
+{% block head %} {{ parent() }} <link rel="stylesheet" type="text/css" href="..\css\home.css">{% endblock %}
+
+{% block body %}
+
+<div id="banniere">
+	<div id="slogan">
+
+			<h1>De vrais compétences </h1><br> <h1>De vrais diplomes</h1>
+
+	</div>
+
+	<div id="prog">
+		<div id="but_prog"><a href=" {{ path('contact') }} ">Ton Programme personnalisé</a>
+		</div>
+	</div>
+
+</div>
+
+<div id="res_soc">
+	
+	<a href="https://www.facebook.com/faustine.coaching/"><img src="..\image\fb_logo.png" alt="Fb_logo" width="50px"></a>
+	<a href="https://www.instagram.com/faustine_coaching/"><img src="..\image\insta_logo.jfif" alt="insta_logo" width="50px"></a>
+	<a href="https://www.youtube.com/channel/UC6AaNoaJI6mlz3QHEvLRRvw"><img src="/..\image\yt_logo.jfif" alt="Yt_logo" width="50px"></a>
+
+</div>
+
+<div id="last_video">
+
+	<div class="video">
+		<h1>Video</h1>
+
+	</div>
+
+	<div class="video">
+		<h1>Video</h1>
+	</div>
+
+	<div class="video">
+		<h1>Video</h1>
+	</div>
+
+</div>
+<a href=" {{ path('article_add')}} ">Ajouter article</a>
+
+
+{% for article in articles %}
+
+<div class="articles">
+	<div class="img_art">
+		<img src="..\..\image\Blog\{{ article.imageFilename }}">
+	</div>
+	<div class="contenu_art">
+		<h2> <a href=" {{ path('article_view', {id: article.id}) }}"> {{ article.titre }} </a></h2>
+
+		<p>
+			{{ article.contenu }} 
+
+		</p>
+
+	</div>
+	
+</div>
+<div>
+	<a href=" {{ path('article_edit', {id: article.id }) }}">éditer l'article</a>
+</div>
+<div>
+	<a href=" {{ path('article_delete', {id: article.id }) }}">Suprimer article</a>
+</div>
+
+{% else %}
+
+<p>
+	Pas d'articles trouvé
+
+</p>
+
+{% endfor %}
+
+
+
+{% endblock %}

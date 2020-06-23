@@ -1,0 +1,23 @@
+{% extends "layout.html.twig" %}
+
+{% block title %} {{ parent() }} - Home {% endblock %}
+{% block head %} <link rel="stylesheet" type="text/css" href="..\..\css\template.css"> {% endblock %}
+
+{% block body %}
+
+<div class="articles">
+	<div class="img_art">
+		<img src="..\..\image\Blog\{{ article.imageFilename }}">
+	</div>
+	<div class="contenu_art">
+		<h2> <a href=""> {{ article.titre }}</a></h2>
+
+		<p>
+			{{ article.contenu }}
+		</p>
+
+	</div>
+
+</div>
+
+{% endblock %}

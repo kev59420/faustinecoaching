@@ -1,0 +1,10 @@
+{% extends "layout.html.twig" %}
+
+{% block title %} {{ parent() }} - Home {% endblock %}
+
+{% block body %}
+
+{# {{ include('Home/Articles/_form.html.twig')}} #}
+{{ form(form) }}
+
+{% endblock %}

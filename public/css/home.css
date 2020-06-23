@@ -1,0 +1,84 @@
+#banniere{
+	height: 500px;
+	background-color: blue;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 5px solid black;
+	background-image: url("../image/couverture.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-attachment: scroll;
+	color:white;
+}
+
+#slogan{
+
+	font-size: 15px;
+	margin-left: 30px;
+}
+
+#but_prog{
+
+	width: 200px;
+	background-color: red;
+	box-shadow: 0 0 15px black;
+	margin-right: 30px;
+	border-radius: 10px;
+}
+
+#but_prog a{
+
+	display: block;
+	font-weight: bold;
+	height: 100%;
+	padding: 10px 0;
+	color:white;
+
+}
+
+#res_soc{
+
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	border-bottom: 5px solid black;
+	padding: 5px 0;
+}
+
+#last_video{
+
+	height: 300px;
+	background-color: red;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 10px 0;
+	border-bottom: 5px solid black;
+
+}
+.video{
+
+	flex-basis: 1 1 20%;
+	background-color: yellow;
+}
+.articles{
+	background-color: white;
+	display: flex;
+	padding: 10px;
+}
+.img_art{
+
+	flex-basis: 1 1 30%
+
+}
+.contenu_art{
+
+	padding: 10px;
+	flex-basis: 1 1 70%
+
+}
+.contenu_art p{
+
+	padding-top: 20px;
+}
