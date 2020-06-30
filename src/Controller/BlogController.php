@@ -3,17 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\Type\ArticleType;
 use Doctrine\ORM\EntityManagerInterface;
+use Intervention\Image\ImageManager;
+use Intervention\Image\ImageManagerStatic as Image;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Twig\Environment;
-use App\Form\Type\ArticleType;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/Blog")
@@ -79,20 +81,29 @@ class BlogController extends AbstractController {
 
 			$imageFile = $form->get('image')->getData();
 
+			
+
+			// to finally create image instances
+		
+			
+
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if ($imageFile) {
                 $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
 
                 // Move the file to the directory where brochures are stored
                 try {
-                    $imageFile->move(
-                        $this->getParameter('img_blog__directory'),
-                        $newFilename
-                    );
+
+	                $manager = new ImageManager();
+	            	$image = $manager->make($imageFile);
+					$image->fit(300, 200);
+					$image->save($this->getParameter('img_blog__directory')."/".$newFilename);
+
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
@@ -117,7 +128,7 @@ class BlogController extends AbstractController {
 	        $entityManager->persist($article);
 	        $entityManager->flush();
 
-        	return $this->redirectToRoute('article_view',[ 'id' => $article->getId() ]);
+        	return $this->redirectToRoute('article_view',[ 'id' => $article->getId()]);
     	}
 
 		return $this->render('Blog/Articles/add.html.twig',[ 'form' => $form->createView()]);
@@ -129,16 +140,28 @@ class BlogController extends AbstractController {
 	 * @Route("/edit/{id}", name="article_edit", requirements={"id" = "\d+"})
 	 */
 
-	public function edit($id, Request $request){
+	public function edit( $id, Request $request){
 
-		if($request->isMethod('POST')){
+		$article = $this->getDoctrine()->getRepository( Article::class )->find($id);
 
-			$this->addFlash('notice','Annonce bien modifiée');
+		$form = $this->createForm(ArticleType::class, $article);
 
-			return $this->redirectToRoute('article_view', ['id' => 5]);
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid()) {
+
+			$article = $form->getData();
+			$entityManager = $this->getDoctrine()->getManager();
+		    $entityManager->persist($article);
+		    $entityManager->flush();
+
+
+			return $this->redirectToRoute('article_view',[ 'id' => $article->getId() ]);
 		}
 
-		return $this->render('Blog/Arcticles/edit.html.twig');
+		return $this->render('Blog/Articles/edit.html.twig',[
+			'article' => $article,
+			'form' => $form->createView() ]);
 
 		}
 

@@ -1,5 +1,8 @@
 {% extends "layout.html.twig" %}
-{% block head %} <meta http-equiv="refresh" content="3;{{ path('home_homepage')}}"> {% endblock %}
+{% block head %} 
+<meta http-equiv="refresh" content="3;{{ path('home_homepage')}}">
+<link rel="stylesheet" type="text/css" href="..\..\css\template.css">
+{% endblock %}
 
 {% block title %} {{ parent() }} - Home {% endblock %}
 

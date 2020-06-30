@@ -1,18 +1,27 @@
-{# templates/Advert/index.html.twig #}
+{% extends "layout.html.twig" %}
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>{{ page }}</title>
-  <meta charset="UTF-8">
-</head>
-<body>
-  <h1>Hello World !</h1>
-  <p>
-    Le Hello World est un grand classique en programmation.
-    Il signifie énormément, car cela veut dire que vous avez
-    réussi à exécuter le programme pour accomplir une tâche simple :
-    afficher ce hello world !
-  </p>
-</body>
-</html>
+{% block title %} {{ parent() }} - Edit {% endblock %}
+{% block head %} <link rel="stylesheet" type="text/css" href="..\..\css\template.css"> {% endblock %}
+
+{% block body %}
+
+<div class="articles">
+	<div class="img_art">
+		<img src="..\..\image\Blog\{{ article.imageFilename }}">
+	</div>
+	<div class="contenu_art">
+		<h2> <a href=" {{ path('article_view', {id: article.id}) }}"> {{ article.titre }} </a></h2>
+
+		<p>
+			{{ article.contenu }} 
+
+		</p>
+
+	</div>
+	
+</div>
+
+{# {{ include('Home/Articles/_form.html.twig')}} #}
+{{ form(form) }}
+
+{% endblock %}
